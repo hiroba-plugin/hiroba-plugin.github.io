@@ -1,5 +1,36 @@
 if (window.location.href.indexOf("score_list") > 0) {
-	scoreListFilter();
+    createMainArea();
+    scoreListFilter();
+    searching();
+}
+
+function createMainArea(){
+    let html = "<div id='myplugin_main'></div>";
+    $(".tabList:nth-child(1)").after(html);
+}
+
+function searching(){
+    var buttonsHtml = "<div id='myplugin_search_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 100%;'><input style='width:100%;' margin:4px; border-radius: 4px;type='text'";
+    buttonsHtml += "</div>";
+    $('#myplugin_main').append(buttonsHtml);
+    
+    $("#myplugin_search_bar input").keyup(function(){
+        let searchText = $(this).val();
+        console.log(searchText);
+        if(searchText != ""){
+            $(".contentBox").each(function( index){
+                if($(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        } else {
+            $(".contentBox").each(function( index){
+                $(this).show();
+            });
+        }
+    });
 }
 function scoreListFilter(){
     var countDonderFull = 0;
@@ -7,15 +38,15 @@ function scoreListFilter(){
     var countSilver = 0;
     var countPlayed = 0;
     var countNone = 0;
-
-    var buttonsHtml = "";
-    buttonsHtml += "<button name='crown_filter' data-crown='donderfull'>全良</button>";
-    buttonsHtml += "<button name='crown_filter' data-crown='gold'>全接</button>";
-    buttonsHtml += "<button name='crown_filter' data-crown='silver'>合格</button>";
-    buttonsHtml += "<button name='crown_filter' data-crown='played'>不合格</button>";
-    buttonsHtml += "<button name='crown_filter' data-crown='none'>未遊玩</button>";
-
-    $('.tabList').append(buttonsHtml);
+    
+    var buttonsHtml = "<div id='myplugin_crown_buttons'  style='display: grid;grid-template-columns: 50% 50% ;'>";
+    buttonsHtml += "<button name='crown_filter' data-crown='donderfull' style='margin:4px;padding:8px 12px;'>全良</button>";
+    buttonsHtml += "<button name='crown_filter' data-crown='gold' style='margin:4px;padding:8px 12px;'>全接</button>";
+    buttonsHtml += "<button name='crown_filter' data-crown='silver' style='margin:4px;padding:8px 12px;'>合格</button>";
+    buttonsHtml += "<button name='crown_filter' data-crown='played' style='margin:4px;padding:8px 12px;'>不合格</button>";
+    buttonsHtml += "<button name='crown_filter' data-crown='none' style='margin:4px;padding:8px 12px;'>未遊玩</button>";
+    buttonsHtml += "</div>";
+    $('#myplugin_main').append(buttonsHtml);
 
     $('[name="crown_filter"]').click(function(){
         crownFilter($(this).data('crown'));
@@ -73,7 +104,7 @@ function scoreListFilter(){
     });
     let remainingHtml = "<div style='color:#ffffff;margin:10px'>你還有" + (countSilver + countPlayed + countNone) + "金冠未拿取</div>";
 
-    $('.tabList').append(remainingHtml);
+    $('#myplugin_main').append(remainingHtml);
 
     function crownFilter(crown){
         $(".contentBox").each(function( index){
