@@ -10,7 +10,7 @@ function createMainArea(){
 }
 
 function searching(){
-    var buttonsHtml = "<div id='myplugin_search_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 100%;'><input style='width:100%;' margin:4px; border-radius: 4px;type='text'";
+    var buttonsHtml = "<div id='myplugin_search_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'><input style='width:284px;' margin:4px; border-radius: 4px;type='text'";
     buttonsHtml += "</div>";
     $('#myplugin_main').append(buttonsHtml);
     
