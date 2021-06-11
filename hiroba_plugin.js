@@ -1,24 +1,27 @@
 if (window.location.href.indexOf("score_list") > 0) {
+    resetTabList();
+    changeSongList();
+    
     addUseCount();
     createMainArea();
     scoreListFilter();
     searching();
 }
 
-function addUseCount(){
-    var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
+var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
     taiko_ban = taiko_ban.split("?")[1];
     taiko_ban = taiko_ban.split("&")[1];
     taiko_ban = taiko_ban.split("=")[1];
 
+function addUseCount(){
     let device = navigator.userAgent;
     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/add',
-    data: { taiko_ban: taiko_ban, device: device },
-    type: 'POST',
-    success: function(result)
-    {
-        console.log(result);
-    }   
+        data: { taiko_ban: taiko_ban, device: device },
+        type: 'POST',
+        success: function(result)
+        {
+            console.log(result);
+        }   
     });         
 }
 
@@ -132,4 +135,50 @@ function scoreListFilter(){
             }
         });
     }
+
+function resetTabList(){
+     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/resetTab',
+        data: { token: getCookie("_token_v2") },
+        type: 'POST',
+        dataType: "json",
+        success: function(result)
+        {
+            console.log(result);
+            $("#tabList").html(result["tabList"]);
+            $(".selectTab a").removeAttr("href"); 
+        }   
+    });
+}
+
+function changeSongList(){
+    $(".selectTab1").click(function(){
+        let genre = $(this).data("id");
+        $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
+            data: { taiko_ban: taiko_ban, genre: genre, token: getCookie("_token_v2") },
+            type: 'POST',
+            dataType: "json",
+            success: function(result)
+            {
+                console.log(result);
+                $("#songList").html(result["songList"]);
+            }   
+        });
+    });
+}
+
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 }
