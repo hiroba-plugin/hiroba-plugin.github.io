@@ -18,7 +18,7 @@ function getToken(){
 function addUseCount(){
     let device = navigator.userAgent;
     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/add',
-        data: { taiko_ban: getCookie("_token_v2"), device: device },
+        data: { taiko_ban: getToken(), device: device },
         type: 'POST',
         success: function(result)
         {
