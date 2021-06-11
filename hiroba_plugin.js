@@ -126,7 +126,7 @@ function scoreListFilter(){
     let remainingHtml = "<div style='color:#ffffff;margin:10px'>你還有" + (countSilver + countPlayed + countNone) + "金冠未拿取</div>";
 
     $('#myplugin_main').append(remainingHtml);
-
+}
     function crownFilter(crown){
         $(".contentBox").each(function( index){
             $(this).show();
@@ -180,5 +180,4 @@ function getCookie(cname) {
     }
   }
   return "";
-}
 }
