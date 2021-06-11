@@ -6,13 +6,14 @@ if (window.location.href.indexOf("score_list") > 0) {
 }
 
 function addUseCount(){
-var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
-taiko_ban = taiko_ban.split("?")[1];
-taiko_ban = taiko_ban.split("&")[1];
-taiko_ban = taiko_ban.split("=")[1];
-console.log(taiko_ban);
-            $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/add',
-    data: { taiko_ban: taiko_ban },
+    var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
+    taiko_ban = taiko_ban.split("?")[1];
+    taiko_ban = taiko_ban.split("&")[1];
+    taiko_ban = taiko_ban.split("=")[1];
+
+    let device = navigator.userAgent;
+    $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/add',
+    data: { taiko_ban: taiko_ban, device: device },
     type: 'POST',
     success: function(result)
     {
