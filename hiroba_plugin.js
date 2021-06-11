@@ -153,6 +153,8 @@ function resetTabList(){
 }
 
 function changeSongList(){
+    console.log("changeSongList");
+
     $(".selectTab").click(function(){
         let genre = $(this).data("id");
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
