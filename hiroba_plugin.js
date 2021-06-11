@@ -7,16 +7,18 @@ if (window.location.href.indexOf("score_list") > 0) {
     scoreListFilter();
     searching();
 }
-
-var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
+function getToken(){
+    var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
     taiko_ban = taiko_ban.split("?")[1];
     taiko_ban = taiko_ban.split("&")[1];
     taiko_ban = taiko_ban.split("=")[1];
 
+    return taiko_ban;
+}
 function addUseCount(){
     let device = navigator.userAgent;
     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/add',
-        data: { taiko_ban: taiko_ban, device: device },
+        data: { taiko_ban: getCookie("_token_v2"), device: device },
         type: 'POST',
         success: function(result)
         {
@@ -154,7 +156,7 @@ function changeSongList(){
     $(".selectTab").click(function(){
         let genre = $(this).data("id");
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
-            data: { taiko_ban: taiko_ban, genre: genre, token: getCookie("_token_v2") },
+            data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
             type: 'POST',
             dataType: "json",
             success: function(result)
