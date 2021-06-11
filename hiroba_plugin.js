@@ -1,7 +1,7 @@
 if (window.location.href.indexOf("score_list") > 0) {
     resetTabList();
     changeSongList();
-    
+
     addUseCount();
     createMainArea();
     scoreListFilter();
@@ -151,7 +151,7 @@ function resetTabList(){
 }
 
 function changeSongList(){
-    $(".selectTab1").click(function(){
+    $(".selectTab").click(function(){
         let genre = $(this).data("id");
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
             data: { taiko_ban: taiko_ban, genre: genre, token: getCookie("_token_v2") },
