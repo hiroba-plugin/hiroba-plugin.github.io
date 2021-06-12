@@ -55,6 +55,8 @@ function searching(){
     });
 }
 function scoreListFilter(){
+    $("#myplugin_main").html("");
+
     var countDonderFull = 0;
     var countGold = 0;
     var countSilver = 0;
