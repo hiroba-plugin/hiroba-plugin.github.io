@@ -169,6 +169,7 @@ function changeSongList(){
             {
                 console.log(result);
                 $("#songList").html(result["songList"]);
+                scoreListFilter();
             }    
         });
     });
