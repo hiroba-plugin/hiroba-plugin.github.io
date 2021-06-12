@@ -1,6 +1,5 @@
 if (window.location.href.indexOf("score_list") > 0) {
     resetTabList();
-    changeSongList();
 
     addUseCount();
     createMainArea();
@@ -150,6 +149,8 @@ function resetTabList(){
             $("#tabList").html(result["tabList"]);
             $("#songList").html(result["songList"]);
             $(".selectTab a").removeAttr("href"); 
+            changeSongList();
+
         }   
     });
 }
@@ -158,6 +159,7 @@ function changeSongList(){
     console.log("changeSongList");
 
     $(".selectTab").click(function(){
+        console.log("clicked");
         let genre = $(this).data("id");
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
             data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
