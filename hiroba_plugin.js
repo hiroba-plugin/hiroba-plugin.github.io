@@ -142,7 +142,7 @@ function scoreListFilter(){
 function resetTabList(){
     console.log("re" ,  window.location.href );
      $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/resetTab',
-        data: { token: getCookie("_token_v2") },
+        data: { taiko_ban: getToken(), token: getCookie("_token_v2") },
         type: 'POST',
         dataType: "json",
         success: function(result)
