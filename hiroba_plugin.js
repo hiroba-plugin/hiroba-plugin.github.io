@@ -158,7 +158,11 @@ function resetTabList(){
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
             $("#loading").remove();
-        }   
+        },
+        error:function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
     });
 }
 
