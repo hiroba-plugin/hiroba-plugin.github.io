@@ -1,10 +1,15 @@
 if (window.location.href.indexOf("score_list") > 0) {
+    setuploadingBar();
     resetTabList();
 
     addUseCount();
     createMainArea();
     scoreListFilter();
     searching();
+}
+function setuploadingBar(){
+    let html = "<div id='loading' style='width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'><img src='https://hkitguy.info/TaikoScore/public/storage/images/gifs/loading_hiroba01.gif' width='240' style='transform:translate(0, 60%);' ></img></div>"
+    $("body").append(html);
 }
 function getToken(){
     var taiko_ban = $(".scoretabArea").find(".scoretab").find("a").attr("href");
@@ -152,7 +157,7 @@ function resetTabList(){
             $("#songList").html(result["songList"]);
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
-
+            $("#loading").remove();
         }   
     });
 }
