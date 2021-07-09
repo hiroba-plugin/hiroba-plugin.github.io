@@ -164,7 +164,7 @@ function resetTabList(){
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
-            alert(xhr);
+            alert(xhr.status);
             alert(thrownError);
         }
     });
