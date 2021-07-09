@@ -9,9 +9,6 @@ if (window.location.href.indexOf("score_list") > 0) {
 }
 function setuploadingBar(){
      
-    var s=document.createElement('script');
-    s.src='https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js';
-    $("body").append(s);
 
     // $.ajaxSetup({ cache: false });
     let html = "<div id='loading' style='z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'><img src='https://hkitguy.info/TaikoScore/public/storage/images/gifs/loading_hiroba01.gif' width='240' style='transform:translate(0, 60%);' ></img></div>"
@@ -180,6 +177,8 @@ function changeSongList(){
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
             data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
             type: 'POST',
+            async: true, 
+            cache: true, 
             dataType: "json",
             success: function(result)
             {
