@@ -154,13 +154,17 @@ function resetTabList(){
         dataType: "json",
         success: function(result)
         {
-            alert(result);
             $("#tabList").html(result["tabList"]);
             $("#songList").html(result["songList"]);
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
             $("#loading").remove();
         },
+
+        error:function (xhr, ajaxOptions, thrownError) {
+            alert(xhr);
+            alert(thrownError);
+        }
     });
 }
 
