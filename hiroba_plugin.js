@@ -164,7 +164,6 @@ function resetTabList(){
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         }
