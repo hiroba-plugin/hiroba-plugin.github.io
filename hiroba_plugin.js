@@ -9,7 +9,7 @@ if (window.location.href.indexOf("score_list") > 0) {
 }
 function setuploadingBar(){
      
-    var s=Document.createElement('script');
+    var s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/mui/3.7.1/js/mui.min.js';
     $("body").append(s);
 
