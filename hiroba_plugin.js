@@ -165,7 +165,8 @@ function resetTabList(){
 
         error:function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
-            alert(thrownError);
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
         }
     });
 }
