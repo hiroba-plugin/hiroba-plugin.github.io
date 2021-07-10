@@ -165,7 +165,7 @@ function resetTabList(){
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
-            alert("18: " + JSON.stringify(xhr) + ' ' + getToken() + ' ' +  getCookie("_token_v2"));
+            alert("19 " );
         }
     });
 }
