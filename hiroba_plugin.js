@@ -148,7 +148,7 @@ function scoreListFilter(){
     }
 }
 function resetTabList(){
-     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/resetTab',
+     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/testing',
         data: { taiko_ban: getToken(), token: getCookie("_token_v2") },
         type: 'POST',
         dataType: "json",
@@ -156,11 +156,12 @@ function resetTabList(){
         cache: true, 
         success: function(result)
         {
-            $("#tabList").html(result["tabList"]);
-            $("#songList").html(result["songList"]);
-            $(".selectTab a").removeAttr("href"); 
-            changeSongList();
-            $("#loading").remove();
+            alert("OK: " + JSON.stringify(result) );
+            // $("#tabList").html(result["tabList"]);
+            // $("#songList").html(result["songList"]);
+            // $(".selectTab a").removeAttr("href"); 
+            // changeSongList();
+            // $("#loading").remove();
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
