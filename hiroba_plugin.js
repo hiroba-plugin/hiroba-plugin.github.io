@@ -151,7 +151,7 @@ function resetTabList(){
      $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/testing',
         data: { taiko_ban: getToken(), token: getCookie("_token_v2") },
         type: 'POST',
-        dataType: "html",
+        dataType: "text",
         async: true, 
         cache: true, 
         success: function(result)
