@@ -1,16 +1,14 @@
 if (window.location.href.indexOf("score_list") > 0) {
     setuploadingBar();
-    resetTabList();
-
+    // resetTabList();
+    fetchcall();
     addUseCount();
     createMainArea();
     scoreListFilter();
     searching();
 }
 function setuploadingBar(){
-    var s=document.createElement('script');
-    s.src='https://cdnjs.cloudflare.com/ajax/libs/mui/3.7.1/js/mui.min.js';
-    $("body").append(s);
+     
 
     // $.ajaxSetup({ cache: false });
     let html = "<div id='loading' style='z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'><img src='https://hkitguy.info/TaikoScore/public/storage/images/gifs/loading_hiroba01.gif' width='240' style='transform:translate(0, 60%);' ></img></div>"
@@ -150,27 +148,52 @@ function scoreListFilter(){
     }
 }
 function resetTabList(){
-     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/testing',
+     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/resetTab',
         data: { taiko_ban: getToken(), token: getCookie("_token_v2") },
         type: 'POST',
-        dataType: "text",
+        dataType: "json",
         async: true, 
         cache: true, 
         success: function(result)
         {
-            alert("OK: " + JSON.stringify(result) );
-            // $("#tabList").html(result["tabList"]);
-            // $("#songList").html(result["songList"]);
-            // $(".selectTab a").removeAttr("href"); 
-            // changeSongList();
-            // $("#loading").remove();
+            $("#tabList").html(result["tabList"]);
+            $("#songList").html(result["songList"]);
+            $(".selectTab a").removeAttr("href"); 
+            changeSongList();
+            $("#loading").remove();
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
-            alert("21 " );
+            alert(JSON.stringify(xhr) + ' ' + getToken() + ' ' +  getCookie("_token_v2"));
         }
     });
 }
+function fetchcall() {
+    // (B1) GET FORM DATA
+    var data = new URLSearchParams();
+    data.append('taiko_ban', getToken());
+    data.append('token', getCookie("_token_v2"));
+   
+    // (B2) FETCH
+    fetch("https://hkitguy.info/TaikoScore/useCount/resetTab", {
+      method: 'post',
+      body: data
+    })
+    .then(function (response) {
+      return response.text();
+    })
+    .then(function (result) {
+        $("#tabList").html(result["tabList"]);
+        $("#songList").html(result["songList"]);
+        $(".selectTab a").removeAttr("href"); 
+        changeSongList();
+        $("#loading").remove();
+    })
+    .catch(function (error) {
+        alert(JSON.stringify(xhr));
+    });
+    return false;
+  }
 
 function changeSongList(){
     console.log("changeSongList");
