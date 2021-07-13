@@ -198,6 +198,8 @@ function fetchcall() {
     })
     .catch(function (error) {
         alert(JSON.stringify(error));
+        $("#loading").remove();
+
     });
     return false;
   }
