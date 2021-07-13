@@ -176,9 +176,14 @@ function fetchcall() {
    
     // (B2) FETCH
     fetch("https://hkitguy.info/TaikoScore/useCount/resetTab", {
-      method: 'post',
-      body: data
+        method: 'post',
+        body: data,
+        credentials: "same-origin",
+        headers: {
+            'Content-Type': 'application/json',
+        },
     })
+    
     .then(function(response) {
         return response.json();
     })
