@@ -179,17 +179,17 @@ function fetchcall() {
       method: 'post',
       body: data
     })
-    .then(function (response) {
-        console.log("then " + response);
-        $("#tabList").html(response["tabList"]);
-        $("#songList").html(response["songList"]);
+    .then(function (result) {
+        console.log("then " + result);
+
+        $("#tabList").html(result["tabList"]);
+        $("#songList").html(result["songList"]);
         $(".selectTab a").removeAttr("href"); 
         changeSongList();
         $("#loading").remove();
-        return response.text();
     })
     .catch(function (error) {
-        alert(JSON.stringify(xhr));
+        alert(JSON.stringify(error));
     });
     return false;
   }
