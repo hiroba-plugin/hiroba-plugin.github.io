@@ -176,14 +176,9 @@ function fetchcall() {
    
     // (B2) FETCH
     fetch("https://hkitguy.info/TaikoScore/useCount/resetTab", {
-        method: 'post',
-        body: data,
-        credentials: "same-origin",
-        headers: {
-            'Content-Type': 'application/json',
-        },
+      method: 'post',
+      body: data
     })
-    
     .then(function(response) {
         return response.json();
     })
@@ -198,8 +193,6 @@ function fetchcall() {
     })
     .catch(function (error) {
         alert(JSON.stringify(error));
-        $("#loading").remove();
-
     });
     return false;
   }
