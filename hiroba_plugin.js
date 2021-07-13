@@ -179,8 +179,11 @@ function fetchcall() {
       method: 'post',
       body: data
     })
+    .then(function(response) {
+        return response.json();
+    })
     .then(function (result) {
-        console.log("then " + result);
+        console.log( result);
 
         $("#tabList").html(result["tabList"]);
         $("#songList").html(result["songList"]);
