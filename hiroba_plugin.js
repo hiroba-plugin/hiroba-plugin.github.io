@@ -152,8 +152,8 @@ function resetTabList(){
         data: { taiko_ban: getToken(), token: getCookie("_token_v2") },
         type: 'POST',
         dataType: "json",
-        async: true, 
-        cache: true, 
+        // async: true, 
+        // cache: true, 
         success: function(result)
         {
             $("#tabList").html(result["tabList"]);
