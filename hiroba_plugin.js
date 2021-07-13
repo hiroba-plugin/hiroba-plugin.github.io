@@ -1,7 +1,7 @@
 if (window.location.href.indexOf("score_list") > 0) {
     setuploadingBar();
-    resetTabList();
-    // fetchcall();
+    // resetTabList();
+    fetchcall();
     addUseCount();
     createMainArea();
     scoreListFilter();
