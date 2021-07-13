@@ -180,19 +180,13 @@ function fetchcall() {
       body: data
     })
     .then(function (response) {
-        $("#tabList").html(result["tabList"]);
-        $("#songList").html(result["songList"]);
+        console.log("then " + response);
+        $("#tabList").html(response["tabList"]);
+        $("#songList").html(response["songList"]);
         $(".selectTab a").removeAttr("href"); 
         changeSongList();
         $("#loading").remove();
-      return response.text();
-    })
-    .then(function (result) {
-        $("#tabList").html(result["tabList"]);
-        $("#songList").html(result["songList"]);
-        $(".selectTab a").removeAttr("href"); 
-        changeSongList();
-        $("#loading").remove();
+        return response.text();
     })
     .catch(function (error) {
         alert(JSON.stringify(xhr));
