@@ -180,6 +180,11 @@ function fetchcall() {
       body: data
     })
     .then(function (response) {
+        $("#tabList").html(result["tabList"]);
+        $("#songList").html(result["songList"]);
+        $(".selectTab a").removeAttr("href"); 
+        changeSongList();
+        $("#loading").remove();
       return response.text();
     })
     .then(function (result) {
