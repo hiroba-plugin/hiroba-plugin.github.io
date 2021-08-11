@@ -154,6 +154,8 @@ function resetTabList(){
         dataType: "json",
         // async: true, 
         // cache: true, 
+        contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
+
         success: function(result)
         {
             $("#tabList").html(result["tabList"]);
@@ -199,10 +201,10 @@ function fetchcall() {
   }
 
 function changeSongList(){
-    console.log("changeSongList");
+    // console.log("changeSongList");
 
     $(".selectTab").click(function(){
-        console.log("clicked");
+        // console.log("clicked");
         let genre = $(this).data("id");
         $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
             data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
@@ -212,12 +214,33 @@ function changeSongList(){
             dataType: "json",
             success: function(result)
             {
-                console.log(result);
+                // console.log(result);
                 $("#songList").html(result["songList"]);
+                $songDataList = result["songData"];
                 scoreListFilter();
+
+                $("#tab-genre" + genre + "> li").each(function(i,v){
+                    let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
+                    songId = songId.split("?")[1];
+                    songId = songId.split("&")[0];
+                    songId = songId.split("=")[1];
+
+                    $(v).attr("data-songId",songId);
+
+                    var resultObject = search(songId, $songDataList);
+                    console.log('ok', songId , resultObject);
+                });
             }    
         });
     });
+}
+
+function search(nameKey, myArray){
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].song_id === nameKey) {
+            return myArray[i];
+        }
+    }
 }
 
 
