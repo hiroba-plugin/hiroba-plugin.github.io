@@ -45,7 +45,13 @@ function createMainArea(){
 }
 
 function searching(){
-    var buttonsHtml = "<div id='myplugin_search_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'><input placeholder='請輸入歌名 Please type song name' style='width:278px; margin:4px; border-radius: 4px;'type='text'";
+    var buttonsHtml = "<div id='myplugin_search_bar' style='display: grid;grid-template-columns: 25% 75%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'>"+
+    "<select name='searchLang' id='searchLang'>" +
+    "<option value='All'>全部</option>" +
+    "<option value='jp'>日文</option>" +
+    "<option value='en'>英文</option>" +
+    "</select>" +
+    "<input placeholder='請輸入歌名 Please type song name' style='width:278px; margin:4px; border-radius: 4px;'type='text'>";
     buttonsHtml += "</div>";
     $('#myplugin_main').append(buttonsHtml);
     
@@ -233,7 +239,7 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-                    if(typeof esultObject.song_name_en !== "undefined"){
+                    if(typeof resultObject.song_name_en !== "undefined"){
                         $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
                     }
                     
