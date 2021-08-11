@@ -233,9 +233,12 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-
-                    $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
+                    if(typeof esultObject.song_name_en !== "undefined"){
+                        $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
+                    }
+                    
                     $(v).find(".songNameArea").css("display","inline-grid");
+                    searching();
                 });
             }    
         });
