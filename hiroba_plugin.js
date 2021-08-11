@@ -154,7 +154,7 @@ function resetTabList(){
         dataType: "json",
         // async: true, 
         // cache: true, 
-        contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
+        // contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
 
         success: function(result)
         {
