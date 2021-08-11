@@ -1,11 +1,16 @@
-if (window.location.href.indexOf("score_list") > 0) {
-    setuploadingBar();
-    resetTabList();
-    // fetchcall();
-    addUseCount();
-    createMainArea();
-    scoreListFilter();
-    searching();
+var isCalled = $("#myplugin_main").length > 0;
+if(isCalled){
+    alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
+} else {
+    if (window.location.href.indexOf("score_list") > 0) {
+        setuploadingBar();
+        resetTabList();
+        // fetchcall();
+        addUseCount();
+        createMainArea();
+        scoreListFilter();
+        searching();
+    }
 }
 function setuploadingBar(){
      
