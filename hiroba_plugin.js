@@ -239,7 +239,7 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-                    if(resultObject.hasOwnProperty(song_name_en)){
+                    if(resultObject.hasOwnProperty("song_name_en")){
                         $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
                     }
                     
