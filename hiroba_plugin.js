@@ -45,7 +45,7 @@ function createMainArea(){
 }
 
 function searching(){
-    var buttonsHtml = "<div id='myplugin_search_bar' style='display: grid;grid-template-columns: 25% 75%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'>"+
+    var buttonsHtml = "<div id='myplugin_search_bar' style='display: grid;grid-template-columns: 25% 72%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'>"+
     "<select name='searchLang' id='searchLang'>" +
     "<option value='All'>全部</option>" +
     "<option value='jp'>日文</option>" +
@@ -239,7 +239,7 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-                    if(typeof resultObject.song_name_en !== "undefined"){
+                    if(resultObject.hasOwnProperty(song_name_en)){
                         $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
                     }
                     
