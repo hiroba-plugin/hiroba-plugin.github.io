@@ -239,7 +239,6 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-                    console.log(resultObject);
                     if(!resultObject["song_name_en"]){
                     } else {
                         $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
@@ -255,7 +254,9 @@ function changeSongList(){
 
 function search(nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
+        console.log(myArray[i].song_id, nameKey, myArray[i].song_id === nameKey)
         if (myArray[i].song_id === nameKey) {
+
             return myArray[i];
         }
     }
