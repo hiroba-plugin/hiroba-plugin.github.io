@@ -240,7 +240,7 @@ function changeSongList(){
 
                     var resultObject = search(songId, $songDataList);
                     console.log(i,resultObject);
-                    if(!resultObject["song_name_en"]){
+                    if(!resultObject.song_name_en){
                     } else {
                         $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
                     }
