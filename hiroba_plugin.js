@@ -239,11 +239,11 @@ function changeSongList(){
                     $(v).attr("data-songId",songId);
 
                     var resultObject = search(songId, $songDataList);
-                    console.log(i,resultObject);
-                    // if(!resultObject.song_name_en){
-                    // } else {
-                        // $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
-                    // }
+                    // console.log(i,resultObject);
+                    if(!resultObject.song_name_en){
+                    } else {
+                        $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
+                    }
                     
                     $(v).find(".songNameArea").css("display","inline-grid");
                     searching();
@@ -259,6 +259,8 @@ function search(nameKey, myArray){
         if (myArray[i].song_id === nameKey) {
 
             return myArray[i];
+        } else {
+
         }
     }
 }
