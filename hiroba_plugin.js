@@ -83,6 +83,7 @@ function scoreListFilter(){
     var countNone = 0;
     
     var buttonsHtml = "<div id='myplugin_crown_buttons'  style='display: grid;grid-template-columns: 50% 50% ;'>";
+    buttonsHtml += "<button name='crown_filter' data-crown='all' style='margin:4px;padding:8px 12px;'>全部</button>";
     buttonsHtml += "<button name='crown_filter' data-crown='donderfull' style='margin:4px;padding:8px 12px;'>全良</button>";
     buttonsHtml += "<button name='crown_filter' data-crown='gold' style='margin:4px;padding:8px 12px;'>全接</button>";
     buttonsHtml += "<button name='crown_filter' data-crown='silver' style='margin:4px;padding:8px 12px;'>合格</button>";
@@ -152,7 +153,7 @@ function scoreListFilter(){
     function crownFilter(crown){
         $(".contentBox").each(function( index){
             $(this).show();
-            if(crownList[index].crown != crown){
+            if(crown != "all" && crownList[index].crown != crown){
                 $(this).hide();
             }
         });
