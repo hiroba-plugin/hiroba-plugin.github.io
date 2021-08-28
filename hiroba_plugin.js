@@ -60,7 +60,23 @@ function searching(){
         console.log(searchText);
         if(searchText != ""){
             $(".contentBox").each(function( index){
-                if($(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0){
+                let searchLang = $("#searchLang").val();
+                var searchCondition = true;
+                switch(searchLang){
+                    case "All":
+                        searchCondition = $(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0 ||
+                        $(this).find("div").find(".en").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
+                    break;
+                    case "jp":
+                        searchCondition = $(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
+                    break;
+                    case "en":
+                        searchCondition = $(this).find("div").find(".en").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
+
+                    break;
+                }
+                searchLang
+                if(searchCondition){
                     $(this).show();
                 } else {
                     $(this).hide();
@@ -243,7 +259,7 @@ function changeSongList(){
                     // console.log(i,resultObject);
                     if(!resultObject.song_name_en){
                     } else {
-                        $(v).find(".songNameArea").append('<span style="color:#cccccc" class="songName songNameFontnamco">'+ resultObject.song_name_en +'</span>');
+                        $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                     }
                     
                     $(v).find(".songNameArea").css("display","inline-grid");
