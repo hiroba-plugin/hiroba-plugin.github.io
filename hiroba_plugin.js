@@ -64,11 +64,11 @@ function searching(){
                 var searchCondition = true;
                 switch(searchLang){
                     case "All":
-                        searchCondition = $(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0 ||
+                        searchCondition = $(this).find("div").find(".jp").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0 ||
                         $(this).find("div").find(".en").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
                     break;
                     case "jp":
-                        searchCondition = $(this).find("div").find("span").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
+                        searchCondition = $(this).find("div").find(".jp").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
                     break;
                     case "en":
                         searchCondition = $(this).find("div").find(".en").html().toUpperCase().indexOf(searchText.toUpperCase()) >= 0;
@@ -191,6 +191,7 @@ function resetTabList(){
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
             $("#loading").remove();
+            changeSongList();
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
@@ -261,7 +262,9 @@ function changeSongList(){
                     } else {
                         $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                     }
-                    
+                    $(".songName").each(function(i,v){
+                        $(this).addClass("jp");
+                    });
                     $(v).find(".songNameArea").css("display","inline-grid");
                     searching();
                 });
