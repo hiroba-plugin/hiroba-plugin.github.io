@@ -190,7 +190,7 @@ function resetTabList(){
             $("#songList").html(result["songList"]);
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
-            $("#loading").remove();
+            changeSongListFunction();
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
@@ -220,7 +220,6 @@ function fetchcall() {
         $("#songList").html(result["songList"]);
         $(".selectTab a").removeAttr("href"); 
         changeSongList();
-        changeSongListFunction();
         $("#loading").remove();
     })
     .catch(function (error) {
@@ -271,6 +270,7 @@ function changeSongListFunction(){
                 });
                 $(v).find(".songNameArea").css("display","inline-grid");
                 searching();
+                $("#loading").remove();
             });
         }    
     });
