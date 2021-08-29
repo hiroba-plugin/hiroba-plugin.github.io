@@ -191,7 +191,6 @@ function resetTabList(){
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
             $("#loading").remove();
-            changeSongList();
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
@@ -221,6 +220,7 @@ function fetchcall() {
         $("#songList").html(result["songList"]);
         $(".selectTab a").removeAttr("href"); 
         changeSongList();
+        changeSongListFunction();
         $("#loading").remove();
     })
     .catch(function (error) {
@@ -233,43 +233,46 @@ function changeSongList(){
     // console.log("changeSongList");
 
     $(".selectTab").click(function(){
-        // console.log("clicked");
-        let genre = $(this).data("id");
-        $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
-            data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
-            type: 'POST',
-            async: true, 
-            cache: true, 
-            dataType: "json",
-            success: function(result)
-            {
-                // console.log(result);
-                $("#songList").html(result["songList"]);
-                $songDataList = result["songData"];
-                scoreListFilter();
+        changeSongListFunction();
+    });
+}
+function changeSongListFunction(){
+    // console.log("clicked");
+    let genre = $(this).data("id");
+    $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
+        data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
+        type: 'POST',
+        async: true, 
+        cache: true, 
+        dataType: "json",
+        success: function(result)
+        {
+            // console.log(result);
+            $("#songList").html(result["songList"]);
+            $songDataList = result["songData"];
+            scoreListFilter();
 
-                $("#tab-genre" + genre + "> li").each(function(i,v){
-                    let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
-                    songId = songId.split("?")[1];
-                    songId = songId.split("&")[0];
-                    songId = songId.split("=")[1];
+            $("#tab-genre" + genre + "> li").each(function(i,v){
+                let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
+                songId = songId.split("?")[1];
+                songId = songId.split("&")[0];
+                songId = songId.split("=")[1];
 
-                    $(v).attr("data-songId",songId);
+                $(v).attr("data-songId",songId);
 
-                    var resultObject = search(songId, $songDataList);
-                    // console.log(i,resultObject);
-                    if(!resultObject.song_name_en){
-                    } else {
-                        $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
-                    }
-                    $(".songName").each(function(i,v){
-                        $(this).addClass("jp");
-                    });
-                    $(v).find(".songNameArea").css("display","inline-grid");
-                    searching();
+                var resultObject = search(songId, $songDataList);
+                // console.log(i,resultObject);
+                if(!resultObject.song_name_en){
+                } else {
+                    $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
+                }
+                $(".songName").each(function(i,v){
+                    $(this).addClass("jp");
                 });
-            }    
-        });
+                $(v).find(".songNameArea").css("display","inline-grid");
+                searching();
+            });
+        }    
     });
 }
 
