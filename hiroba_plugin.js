@@ -250,7 +250,7 @@ function changeSongListFunction(){
             $("#songList").html(result["songList"]);
             $songDataList = result["songData"];
             scoreListFilter();
-
+            $("#loading").remove();
             $("#tab-genre" + genre + "> li").each(function(i,v){
                 let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
                 songId = songId.split("?")[1];
