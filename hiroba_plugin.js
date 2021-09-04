@@ -190,7 +190,7 @@ function resetTabList(){
             $("#songList").html(result["songList"]);
             $(".selectTab a").removeAttr("href"); 
             changeSongList();
-            changeSongListFunction();
+            changeSongListFunction(1);
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
@@ -232,12 +232,11 @@ function changeSongList(){
     // console.log("changeSongList");
 
     $(".selectTab").click(function(){
-        changeSongListFunction();
+        changeSongListFunction($(this).data("id"));
     });
 }
-function changeSongListFunction(){
+function changeSongListFunction(genre){
     // console.log("clicked");
-    let genre = $(this).data("id");
     $.ajax({url:'https://hkitguy.info/TaikoScore/useCount/test',
         data: { taiko_ban: getToken(), genre: genre, token: getCookie("_token_v2") },
         type: 'POST',
@@ -260,11 +259,8 @@ function changeSongListFunction(){
                 $(v).attr("data-songId",songId);
 
                 var resultObject = search(songId, $songDataList);
-                // console.log(i,resultObject);
-                if(!resultObject.song_name_en){
-                } else {
-                    $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
-                }
+                $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
+                
                 $(".songName").each(function(i,v){
                     $(this).addClass("jp");
                 });
