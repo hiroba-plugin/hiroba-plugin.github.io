@@ -1,4 +1,5 @@
 var isCalled = $("#myplugin_main").length > 0;
+var searchLang = "All";
 if(isCalled){
     alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
 } else {
@@ -45,6 +46,7 @@ function createMainArea(){
 }
 
 function searching(){
+    $("#myplugin_search_bar").remove();
     var buttonsHtml = "<div id='myplugin_search_bar' style='display: grid;grid-template-columns: 25% 72%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'>"+
     "<select name='searchLang' id='searchLang'>" +
     "<option value='All'>全部</option>" +
@@ -53,14 +55,18 @@ function searching(){
     "</select>" +
     "<input placeholder='請輸入歌名 Please type song name' style='width:278px; margin:4px; border-radius: 4px;'type='text'>";
     buttonsHtml += "</div>";
+console.log('how');
     $('#myplugin_main').append(buttonsHtml);
+
+    $('#searchLang').on('change', function() {
+       searchLang= this.value;
+    });
     
     $("#myplugin_search_bar input").keyup(function(){
         let searchText = $(this).val();
-        console.log(searchText);
+        console.log(searchLang);
         if(searchText != ""){
             $(".contentBox").each(function( index){
-                let searchLang = $("#searchLang").val();
                 var searchCondition = true;
                 switch(searchLang){
                     case "All":
@@ -253,56 +259,78 @@ function changeSongListFunction(genre){
             $("#tab-genre" + genre + "> li").each(function(i,v){
                 
                 let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
+                let isUra = $(v).find(".songNameArea").hasClass("ura");
                 songId = songId.split("?")[1];
                 songId = songId.split("&")[0];
                 songId = songId.split("=")[1];
                 
                 $(v).attr("data-songId",songId);
                 
-                var resultObject = search(songId, $songDataList);
-                addLevelLayout(v,resultObject);
+                var resultObject = search(isUra, songId, $songDataList);
+                addLevelLayout(isUra, v, resultObject);
                 $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                 
                 $(".songNameArea .songName:nth-child(1)").each(function(i,v){
                     $(this).addClass("jp");
                 });
                 $(v).find(".songNameArea").css("display","inline-grid");
-                searching();
+                
             });
+            searching();
         }    
     });
 }
 
-function addLevelLayout(resultObject){
-    var html = "";
-    html += "<div class='buttonArea levelSelect'>";
-    html += "<ul class='buttonList'>";
-    html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+resultObject.level_1;
-    html += "</li>";
-    html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+resultObject.level_2;
-    html += "</li>";
-    html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+resultObject.level_3;
-    html += "</li>";
-    html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+resultObject.level_4;
-    html += "</li>";
-    html += "<ul>";
-    html += "</div>";
+function addLevelLayout(isUra, v,resultObject){
+    if(isUra == 1){
+        var html = "";
+        html += "<div class='buttonArea levelSelect'>";
+        html += "<ul class='buttonList'>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "★x"+resultObject.level_4;
+        html += "</li>";
+        html += "<ul>";
+        html += "</div>";
+    } else {
+
+        var html = "";
+        html += "<div class='buttonArea levelSelect'>";
+        html += "<ul class='buttonList'>";
+        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "★x"+resultObject.level_1;
+        html += "</li>";
+        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "★x"+resultObject.level_2;
+        html += "</li>";
+        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "★x"+resultObject.level_3;
+        html += "</li>";
+        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "★x"+resultObject.level_4;
+        html += "</li>";
+        html += "<ul>";
+        html += "</div>";
+    }
 
 
-
-    $(v).find(".contentBox").append(html);
+    $(v).append(html);
 }
 
-function search(nameKey, myArray){
+function search(isUra, nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
-        // console.log(myArray[i].song_id, nameKey, myArray[i].song_id === nameKey)
+        //console.log(myArray[i].song_id, nameKey,myArray[i].is_ura);
         if (myArray[i].song_id === nameKey) {
-
-            return myArray[i];
+            if(isUra == 1){
+                return myArray[i+1];
+            } else {
+                return myArray[i];
+            }
         } else {
 
         }
