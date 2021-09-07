@@ -260,7 +260,7 @@ function changeSongListFunction(genre){
                 $(v).attr("data-songId",songId);
                 
                 var resultObject = search(songId, $songDataList);
-                addLevelLayout(resultObject);
+                addLevelLayout(v,resultObject);
                 $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                 
                 $(".songNameArea .songName:nth-child(1)").each(function(i,v){
@@ -294,7 +294,7 @@ function addLevelLayout(resultObject){
 
 
 
-    $(".contentBox").append(html);
+    $(v).find(".contentBox").append(html);
 }
 
 function search(nameKey, myArray){
