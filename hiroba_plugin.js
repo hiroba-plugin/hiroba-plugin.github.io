@@ -251,16 +251,16 @@ function changeSongListFunction(genre){
             scoreListFilter();
             $("#loading").remove();
             $("#tab-genre" + genre + "> li").each(function(i,v){
-                addLevelLayout(result);
                 
                 let songId = $(v).find(".buttonArea .buttonList li:nth-child(4) a").attr("href");
                 songId = songId.split("?")[1];
                 songId = songId.split("&")[0];
                 songId = songId.split("=")[1];
-
+                
                 $(v).attr("data-songId",songId);
-
+                
                 var resultObject = search(songId, $songDataList);
+                addLevelLayout(resultObject);
                 $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                 
                 $(".songNameArea .songName:nth-child(1)").each(function(i,v){
@@ -273,21 +273,21 @@ function changeSongListFunction(genre){
     });
 }
 
-function addLevelLayout(result){
+function addLevelLayout(resultObject){
     var html = "";
     html += "<div class='buttonArea levelSelect'>";
     html += "<ul class='buttonList'>";
     html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+result.level_1;
+    html += "★x"+resultObject.level_1;
     html += "</li>";
     html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+result.level_2;
+    html += "★x"+resultObject.level_2;
     html += "</li>";
     html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+result.level_3;
+    html += "★x"+resultObject.level_3;
     html += "</li>";
     html += "<li class='songNameFontjpop' style='color:white;'>";
-    html += "★x"+result.level_4;
+    html += "★x"+resultObject.level_4;
     html += "</li>";
     html += "<ul>";
     html += "</div>";
