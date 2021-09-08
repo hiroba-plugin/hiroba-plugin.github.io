@@ -4,6 +4,8 @@ if(isCalled){
     alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
 } else {
     if (window.location.href.indexOf("score_list") > 0) {
+        callOtherJsFile("https://hiroba-plugin.github.io/js/rSlider.min.js");
+        callOtherCssFile("https://hiroba-plugin.github.io/css/rSlider.min.css");
         setuploadingBar();
         resetTabList();
         // fetchcall();
@@ -12,6 +14,13 @@ if(isCalled){
         scoreListFilter();
         searching();
     }
+}
+
+function callOtherJsFile(url){
+    javascript:var scriptElm = document.createElement('script'); scriptElm.type = 'text/javascript'; scriptElm.src = url; document.head.appendChild(scriptElm);
+}
+function callOtherCssFile(url){
+    javascript:var scriptElm = document.createElement('link'); scriptElm.type = 'text/css'; scriptElm.rel ="stylesheet"; scriptElm.href = url; document.head.appendChild(scriptElm);
 }
 function setuploadingBar(){
      
@@ -95,6 +104,40 @@ console.log('how');
         }
     });
 }
+function filterLevel(){
+    $("#myplugin_filter_bar").remove();
+    var buttonsHtml = "<div id='myplugin_filter_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;margin-bottom:43px;height:50px;'>";
+    buttonsHtml += '<div class="slider-container">';
+    buttonsHtml += '<input type="text" id="slider3" class="slider" style="display: none;">';
+    buttonsHtml += '</div>';
+	
+	buttonsHtml += "</div>";
+    $('#myplugin_main').append(buttonsHtml);
+	
+	var slider3 = new rSlider({
+		target: '#slider3',
+		values: {min: 1, max: 10},
+		step: 1,
+		range: true,
+		set: [1, 10],
+		scale: true,
+		labels: false,
+		onChange: function (vals) {
+			var valsArr = vals.split(',');
+			console.log(valsArr);
+			$(".contentBox").each(function( index,v){
+				$(v).show();
+				var level =  $(v).find(".levelShow").find(".buttonList").find("li:nth-child(4)").attr("data-level");
+				console.log(parseInt(valsArr[0]), parseInt(level), parseInt(valsArr[1]),parseInt(level) > parseInt(valsArr[0]) , parseInt(level) < parseInt(valsArr[1]));
+				if( parseInt(level) < parseInt(valsArr[0]) || parseInt(level) > parseInt(valsArr[1]) ){
+					$(v).hide();
+				}
+			});
+		}
+	});
+
+}
+
 function scoreListFilter(){
     $("#myplugin_main").html("");
 
@@ -277,6 +320,7 @@ function changeSongListFunction(genre){
                 
             });
             searching();
+            filterLevel();
         }    
     });
 }
@@ -284,7 +328,7 @@ function changeSongListFunction(genre){
 function addLevelLayout(isUra, v,resultObject){
     if(isUra == 1){
         var html = "";
-        html += "<div class='buttonArea levelSelect'>";
+        html += "<div class='buttonArea levelSelect levelShow'>";
         html += "<ul class='buttonList'>";
         html += "<li>";
         html += "</li>";
@@ -292,7 +336,7 @@ function addLevelLayout(isUra, v,resultObject){
         html += "</li>";
         html += "<li>";
         html += "</li>";
-        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "<li data-level='"+resultObject.level_4+"' class='songNameFontjpop' style='color:white;'>";
         html += "★x"+resultObject.level_4;
         html += "</li>";
         html += "<ul>";
@@ -300,18 +344,18 @@ function addLevelLayout(isUra, v,resultObject){
     } else {
 
         var html = "";
-        html += "<div class='buttonArea levelSelect'>";
+        html += "<div class='buttonArea levelSelect levelShow'>";
         html += "<ul class='buttonList'>";
-        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "<li data-level='"+resultObject.level_1+"'  class='songNameFontjpop' style='color:white;'>";
         html += "★x"+resultObject.level_1;
         html += "</li>";
-        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "<li data-level='"+resultObject.level_2+"'  class='songNameFontjpop' style='color:white;'>";
         html += "★x"+resultObject.level_2;
         html += "</li>";
-        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "<li data-level='"+resultObject.level_3+"'  class='songNameFontjpop' style='color:white;'>";
         html += "★x"+resultObject.level_3;
         html += "</li>";
-        html += "<li class='songNameFontjpop' style='color:white;'>";
+        html += "<li data-level='"+resultObject.level_4+"'  class='songNameFontjpop' style='color:white;'>";
         html += "★x"+resultObject.level_4;
         html += "</li>";
         html += "<ul>";
@@ -352,3 +396,4 @@ function getCookie(cname) {
   }
   return "";
 }
+undefined
