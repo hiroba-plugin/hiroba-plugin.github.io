@@ -1,5 +1,7 @@
 var isCalled = $("#myplugin_main").length > 0;
 var searchLang = "All";
+var searchNameConditionList = [];
+var searchLevelConditionList = [];
 if(isCalled){
     alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
 } else {
@@ -62,7 +64,7 @@ function searching(){
     "<option value='jp'>日文</option>" +
     "<option value='en'>英文</option>" +
     "</select>" +
-    "<input placeholder='請輸入歌名 Please type song name' style='width:278px; margin:4px; border-radius: 4px;'type='text'>";
+    "<input id='searchInput' placeholder='請輸入歌名 Please type song name' style='width:100%; margin:4px; border-radius: 4px;'type='text'>";
     buttonsHtml += "</div>";
 console.log('how');
     $('#myplugin_main').append(buttonsHtml);
@@ -72,8 +74,8 @@ console.log('how');
     });
     
     $("#myplugin_search_bar input").keyup(function(){
+        searchNameConditionList = [];
         let searchText = $(this).val();
-        console.log(searchLang);
         if(searchText != ""){
             $(".contentBox").each(function( index){
                 var searchCondition = true;
@@ -90,20 +92,29 @@ console.log('how');
 
                     break;
                 }
-                searchLang
-                if(searchCondition){
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
+                searchNameConditionList.push(searchCondition);
+                
             });
         } else {
             $(".contentBox").each(function( index){
                 $(this).show();
             });
         }
+        searchFunction();
     });
 }
+function searchFunction(){
+    $(".contentBox").each(function( i,v){
+        console.log(searchNameConditionList[i] , searchLevelConditionList[i])
+        let searchInput = $("#searchInput").val();
+        if((searchInput == '' && searchLevelConditionList[i]) || (searchNameConditionList[i] && searchLevelConditionList[i])){
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+
 function filterLevel(){
     $("#myplugin_filter_bar").remove();
     var buttonsHtml = "<div id='myplugin_filter_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;margin-bottom:43px;height:50px;'>";
@@ -123,16 +134,18 @@ function filterLevel(){
 		scale: true,
 		labels: false,
 		onChange: function (vals) {
+            searchLevelConditionList = [];
 			var valsArr = vals.split(',');
 			console.log(valsArr);
 			$(".contentBox").each(function( index,v){
-				$(v).show();
 				var level =  $(v).find(".levelShow").find(".buttonList").find("li:nth-child(4)").attr("data-level");
-				console.log(parseInt(valsArr[0]), parseInt(level), parseInt(valsArr[1]),parseInt(level) > parseInt(valsArr[0]) , parseInt(level) < parseInt(valsArr[1]));
 				if( parseInt(level) < parseInt(valsArr[0]) || parseInt(level) > parseInt(valsArr[1]) ){
-					$(v).hide();
-				}
-			});
+                    searchLevelConditionList.push(false);
+				} else {
+                    searchLevelConditionList.push(true);
+                }
+            });
+            searchFunction();
 		}
 	});
 
@@ -396,4 +409,3 @@ function getCookie(cname) {
   }
   return "";
 }
-undefined
