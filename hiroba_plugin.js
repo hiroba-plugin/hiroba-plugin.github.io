@@ -1,7 +1,9 @@
 var isCalled = $("#myplugin_main").length > 0;
 var searchLang = "All";
+var searchSlider = null;
 var searchNameConditionList = [];
 var searchLevelConditionList = [];
+
 if(isCalled){
     alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
 } else {
@@ -66,7 +68,7 @@ function searching(){
     "</select>" +
     "<input id='searchInput' placeholder='請輸入歌名 Please type song name' style='width:100%; margin:4px; border-radius: 4px;'type='text'>";
     buttonsHtml += "</div>";
-console.log('how');
+
     $('#myplugin_main').append(buttonsHtml);
 
     $('#searchLang').on('change', function() {
@@ -119,14 +121,14 @@ function filterLevel(){
     $("#myplugin_filter_bar").remove();
     var buttonsHtml = "<div id='myplugin_filter_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;margin-bottom:43px;height:50px;'>";
     buttonsHtml += '<div class="slider-container">';
-    buttonsHtml += '<input type="text" id="slider3" class="slider" style="display: none;">';
+    buttonsHtml += '<input type="text" id="searchSlider" class="slider" style="display: none;">';
     buttonsHtml += '</div>';
 	
 	buttonsHtml += "</div>";
     $('#myplugin_main').append(buttonsHtml);
 	
-	var slider3 = new rSlider({
-		target: '#slider3',
+	searchSlider = new rSlider({
+		target: '#searchSlider',
 		values: {min: 1, max: 10},
 		step: 1,
 		range: true,
@@ -147,8 +149,11 @@ function filterLevel(){
             });
             searchFunction();
 		}
-	});
+    });
 
+    document.addEventListener('searchSlider',function(e){
+        console.log(123);
+    },false);
 }
 
 function scoreListFilter(){
@@ -172,7 +177,7 @@ function scoreListFilter(){
 
     $('[name="crown_filter"]').click(function(){
         crownFilter($(this).data('crown'));
-        console.log($(this).data('crown'));
+        searchSlider.setValues(1, 10);
     });
 
 
@@ -229,6 +234,7 @@ function scoreListFilter(){
     $('#myplugin_main').append(remainingHtml);
 
     function crownFilter(crown){
+        $("#searchInput").val("");
         $(".contentBox").each(function( index){
             $(this).show();
             if(crown != "all" && crownList[index].crown != crown){
