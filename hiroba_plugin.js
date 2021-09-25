@@ -329,14 +329,17 @@ function changeSongListFunction(genre){
                 $(v).attr("data-songId",songId);
                 
                 var resultObject = search(isUra, songId, $songDataList);
-                addLevelLayout(isUra, v, resultObject);
-                $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
-                
-                $(".songNameArea .songName:nth-child(1)").each(function(i,v){
-                    $(this).addClass("jp");
-                });
-                $(v).find(".songNameArea").css("display","inline-grid");
-                
+                if(resultObject != null){
+
+                    addLevelLayout(isUra, v, resultObject);
+                    $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
+                    
+                    $(".songNameArea .songName:nth-child(1)").each(function(i,v){
+                        $(this).addClass("jp");
+                    });
+                    $(v).find(".songNameArea").css("display","inline-grid");
+                }
+                    
             });
             searching();
             filterLevel();
@@ -389,13 +392,13 @@ function search(isUra, nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
         //console.log(myArray[i].song_id, nameKey,myArray[i].is_ura);
         if (myArray[i].song_id === nameKey) {
+            
             if(isUra == 1){
                 return myArray[i+1];
             } else {
                 return myArray[i];
             }
         } else {
-
         }
     }
 }
