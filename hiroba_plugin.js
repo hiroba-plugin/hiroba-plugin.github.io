@@ -254,11 +254,16 @@ function resetTabList(){
 
         success: function(result)
         {
-            $("#tabList").html(result["tabList"]);
-            $("#songList").html(result["songList"]);
-            $(".selectTab a").removeAttr("href"); 
-            changeSongList();
-            changeSongListFunction(1);
+            if(result["success"] == true){
+
+                $("#tabList").html(result["tabList"]);
+                $("#songList").html(result["songList"]);
+                $(".selectTab a").removeAttr("href"); 
+                changeSongList();
+                changeSongListFunction(1);
+            } else if(result["success"] == false){
+                resetTabList();
+            }
         },
 
         error:function (xhr, ajaxOptions, thrownError) {
