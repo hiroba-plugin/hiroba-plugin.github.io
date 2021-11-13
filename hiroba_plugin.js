@@ -337,6 +337,7 @@ function changeSongListFunction(genre){
                 if(resultObject != null){
 
                     addLevelLayout(isUra, v, resultObject);
+                    addFumenLayout(isUra, v, resultObject);
                     $(v).find(".songNameArea").append('<span style="color:#ffffff" class="songName songNameFontnamco en">'+ resultObject.song_name_en +'</span>');
                     
                     $(".songNameArea .songName:nth-child(1)").each(function(i,v){
@@ -388,6 +389,49 @@ function addLevelLayout(isUra, v,resultObject){
         html += "<ul>";
         html += "</div>";
     }
+
+
+    $(v).append(html);
+}
+
+
+function addFumenLayout(isUra, v,resultObject){
+    // if(isUra == 1){
+        var html = "";
+        html += "<div class='buttonArea levelSelect levelShow'>";
+        html += "<ul class='buttonList'>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li>";
+        html += "</li>";
+        html += "<li class='songNameFontjpop' >";
+        html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"譜面</a>";
+        html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"譜面</a>";
+        html += "</li>";
+        html += "<ul>";
+        html += "</div>";
+    // } else {
+
+    //     var html = "";
+    //     html += "<div class='buttonArea fumenSelect fumenShow'>";
+    //     html += "<ul class='buttonList'>";
+    //     html += "<li data-fumen='"+resultObject.level_1+"'  class='songNameFontjpop' style='color:white;'>";
+    //     html += "★x"+resultObject.level_1;
+    //     html += "</li>";
+    //     html += "<li data-fumen='"+resultObject.level_2+"'  class='songNameFontjpop' style='color:white;'>";
+    //     html += "★x"+resultObject.level_2;
+    //     html += "</li>";
+    //     html += "<li data-fumen='"+resultObject.level_3+"'  class='songNameFontjpop' style='color:white;'>";
+    //     html += "★x"+resultObject.level_3;
+    //     html += "</li>";
+    //     html += "<li data-fumen='"+resultObject.level_4+"'  class='songNameFontjpop' style='color:white;'>";
+    //     html += "★x"+resultObject.level_4;
+    //     html += "</li>";
+    //     html += "<ul>";
+    //     html += "</div>";
+    // }
 
 
     $(v).append(html);
