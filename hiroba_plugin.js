@@ -466,7 +466,7 @@ function search(isUra, nameKey, myArray){
 
 function getCookie(cname) {
   var name = cname + "=";
-  console.log(document.cookie);
+  console.log('<?php echo "aaaa";?>');
   var ca = document.cookie.split(';');
   console.log(ca);
   for(var i = 0; i < ca.length; i++) {
