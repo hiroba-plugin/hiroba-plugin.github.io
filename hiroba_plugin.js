@@ -1,25 +1,27 @@
 var isCalled = $("#myplugin_main").length > 0;
+var isOpenedFumenArea = false;
 var searchLang = "All";
 var searchSlider = null;
 var searchNameConditionList = [];
 var searchLevelConditionList = [];
 
-if(isCalled){
-    alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
-} else {
-    if (window.location.href.indexOf("score_list") > 0) {
-        callOtherJsFile("https://hiroba-plugin.github.io/js/rSlider.min.js");
-        callOtherCssFile("https://hiroba-plugin.github.io/css/rSlider.min.css");
-        setuploadingBar();
-        resetTabList();
-        // fetchcall();
-        addUseCount();
-        createMainArea();
-        scoreListFilter();
-        searching();
+$(document).ready(function(){
+    if(isCalled){
+        alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
+    } else {
+        if (window.location.href.indexOf("score_list") > 0) {
+            callOtherJsFile("https://hiroba-plugin.github.io/js/rSlider.min.js");
+            callOtherCssFile("https://hiroba-plugin.github.io/css/rSlider.min.css");
+            setuploadingBar();
+            resetTabList();
+            // fetchcall();
+            addUseCount();
+            createMainArea();
+            scoreListFilter();
+            searching();
+        }
     }
-}
-
+});
 function callOtherJsFile(url){
     javascript:var scriptElm = document.createElement('script'); scriptElm.type = 'text/javascript'; scriptElm.src = url; document.head.appendChild(scriptElm);
 }
@@ -398,7 +400,7 @@ function addLevelLayout(isUra, v,resultObject){
 function addFumenLayout(isUra, v,resultObject){
     // if(isUra == 1){
         var html = "";
-        html += "<div class='buttonArea levelSelect levelShow'>";
+        html += "<div style='height:48px;' class='buttonArea levelSelect levelShow'>";
         html += "<ul class='buttonList'>";
         html += "<li>";
         html += "</li>";
@@ -407,34 +409,43 @@ function addFumenLayout(isUra, v,resultObject){
         html += "<li>";
         html += "</li>";
         html += "<li class='songNameFontjpop' >";
-        html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"譜面</a>";
-        html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"譜面</a>";
+            html += "<button name='fumenButton' style='padding:6px 10px; background: #0000007C; border: 1px solid #0000003C; color: #FCFCFC'>譜面</button>"
+        // html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"</a>";
+        // if(JSON.parse(resultObject.level4_fumen_attach).img2 != undefined){
+        //     console.log(JSON.parse(resultObject.level4_fumen_attach).img2);
+        //     html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"</a>";
+        // }
+        // if(JSON.parse(resultObject.level4_fumen_attach).img3 != undefined){
+        //     html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img3+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img3+"</a>";
+        // }
+        // if(JSON.parse(resultObject.level4_fumen_attach).img4 != undefined){
+        //     html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img4+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img4+"</a>";
+        // }
         html += "</li>";
         html += "<ul>";
         html += "</div>";
-    // } else {
-
-    //     var html = "";
-    //     html += "<div class='buttonArea fumenSelect fumenShow'>";
-    //     html += "<ul class='buttonList'>";
-    //     html += "<li data-fumen='"+resultObject.level_1+"'  class='songNameFontjpop' style='color:white;'>";
-    //     html += "★x"+resultObject.level_1;
-    //     html += "</li>";
-    //     html += "<li data-fumen='"+resultObject.level_2+"'  class='songNameFontjpop' style='color:white;'>";
-    //     html += "★x"+resultObject.level_2;
-    //     html += "</li>";
-    //     html += "<li data-fumen='"+resultObject.level_3+"'  class='songNameFontjpop' style='color:white;'>";
-    //     html += "★x"+resultObject.level_3;
-    //     html += "</li>";
-    //     html += "<li data-fumen='"+resultObject.level_4+"'  class='songNameFontjpop' style='color:white;'>";
-    //     html += "★x"+resultObject.level_4;
-    //     html += "</li>";
-    //     html += "<ul>";
-    //     html += "</div>";
-    // }
-
-
+   
     $(v).append(html);
+
+    $("[name='fumenButton']").click(function(){
+        if(!isOpenedFumenArea){
+
+            isOpenedFumenArea = true;
+            let html = "<div id='fumenListArea' style='z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'>";
+            html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"</a>";
+            if(JSON.parse(resultObject.level4_fumen_attach).img2 != undefined){
+                html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"</a>";
+            }
+            if(JSON.parse(resultObject.level4_fumen_attach).img3 != undefined){
+                html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img3+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img3+"</a>";
+            }
+            if(JSON.parse(resultObject.level4_fumen_attach).img4 != undefined){
+                html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img4+"' style='font-size: 12px;color:white !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img4+"</a>";
+            }
+            html += "</div>"
+            $("body").append(html);
+        }
+    });
 }
 
 function search(isUra, nameKey, myArray){
@@ -455,6 +466,7 @@ function search(isUra, nameKey, myArray){
 
 function getCookie(cname) {
   var name = cname + "=";
+  console.log(document.cookie);
   var ca = document.cookie.split(';');
   console.log(ca);
   for(var i = 0; i < ca.length; i++) {
@@ -462,6 +474,7 @@ function getCookie(cname) {
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
     }
+    console.log(c.indexOf(name));
     if (c.indexOf(name) == 0) {
       return c.substring(name.length, c.length);
     }
