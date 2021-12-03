@@ -4,6 +4,4 @@ hiroba-plugin
 
 ## 使用方法
 
-•如何增加hiroba-plugin到電腦?
-
-1. 請先把 <a href="javascript:void(function(d){if(['donderhiroba.jp'].indexOf(d.location.host)>=0){var s=d.createElement('script');s.type='text/javascript' ;s.src='https://hiroba-plugin.github.io/hiroba_plugin.js';d.body.append(s);}})(document)">插件書籤</a> 拉到瀏覽器上方的書籤欄
+使用方法請按[這裡](https://hiroba-plugin.github.io/installation.html)
