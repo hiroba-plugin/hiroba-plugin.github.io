@@ -20,9 +20,13 @@ $(document).ready(function(){
            createMainArea();
            scoreListFilter();
            searching();
+       } else if(window.location.href.indexOf("friend_list") > 0){
+        addFriendTagField();
        }
    }
 });
+
+// Score List Functions
 function callOtherJsFile(url){
    javascript:var scriptElm = document.createElement('script'); scriptElm.type = 'text/javascript'; scriptElm.src = url; document.head.appendChild(scriptElm);
 }
@@ -488,7 +492,12 @@ function getCookie(cname) {
  }
  return "";
 }
- 
- 
- 
 
+
+// Friend List Functions
+
+function addFriendTagField(){
+    let appendHtml = '<div class="friendTagArea"><input>Testing</input></div>';
+
+    $(".friendProfileArea").append(appendHtml);
+}
