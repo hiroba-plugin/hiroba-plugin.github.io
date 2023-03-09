@@ -13,6 +13,7 @@ $(document).ready(function(){
        if (window.location.href.indexOf("score_list") > 0) {
            callOtherJsFile("https://hiroba-plugin.github.io/js/rSlider.min.js");
            callOtherCssFile("https://hiroba-plugin.github.io/css/rSlider.min.css");
+           callOtherCssFile("https://hiroba-plugin.github.io/css/hiroba_plugin.css");
            setuploadingBar();
            resetTabList();
            // fetchcall();
@@ -37,7 +38,7 @@ function setuploadingBar(){
    
  
    // $.ajaxSetup({ cache: false });
-   let html = "<div id='loading' style='z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'><img src='https://hkitguy.info/TaikoScore/public/storage/images/gifs/loading_hiroba01.gif' width='240' style='transform:translate(0, 60%);' ></img></div>"
+   let html = "<div id='loading' class='loading'><img src='https://hkitguy.info/TaikoScore/public/storage/images/gifs/loading_hiroba01.gif' width='240' ></img></div>"
    $("body").append(html);
 }
 function getToken(){
@@ -67,13 +68,13 @@ function createMainArea(){
  
 function searching(){
    $("#myplugin_search_bar").remove();
-   var buttonsHtml = "<div id='myplugin_search_bar' style='display: grid;grid-template-columns: 25% 72%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;'>"+
+   var buttonsHtml = "<div id='myplugin_search_bar' class='myplugin_search_bar'>"+
    "<select name='searchLang' id='searchLang'>" +
    "<option value='All'>全部</option>" +
    "<option value='jp'>日文</option>" +
    "<option value='en'>英文</option>" +
    "</select>" +
-   "<input id='searchInput' placeholder='請輸入歌名 Please type song name' style='width:100%; margin:4px; border-radius: 4px;'type='text'>";
+   "<input id='searchInput' placeholder='請輸入歌名 Please type song name' style='searchInput' type='text'>";
    buttonsHtml += "</div>";
  
    $('#myplugin_main').append(buttonsHtml);
@@ -126,7 +127,7 @@ function searchFunction(){
  
 function filterLevel(){
    $("#myplugin_filter_bar").remove();
-   var buttonsHtml = "<div id='myplugin_filter_bar' style='position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;margin-bottom:43px;height:50px;'>";
+   var buttonsHtml = "<div id='myplugin_filter_bar' style='myplugin_filter_bar'>";
    buttonsHtml += '<div class="slider-container">';
    buttonsHtml += '<input type="text" id="searchSlider" class="slider" style="display: none;">';
    buttonsHtml += '</div>';
@@ -172,13 +173,13 @@ function scoreListFilter(){
    var countPlayed = 0;
    var countNone = 0;
   
-   var buttonsHtml = "<div id='myplugin_crown_buttons'  style='display: grid;grid-template-columns: 50% 50% ;'>";
-   buttonsHtml += "<button name='crown_filter' data-crown='all' style='margin:4px;padding:8px 12px;'>全部</button>";
-   buttonsHtml += "<button name='crown_filter' data-crown='donderfull' style='margin:4px;padding:8px 12px;'>全良</button>";
-   buttonsHtml += "<button name='crown_filter' data-crown='gold' style='margin:4px;padding:8px 12px;'>全接</button>";
-   buttonsHtml += "<button name='crown_filter' data-crown='silver' style='margin:4px;padding:8px 12px;'>合格</button>";
-   buttonsHtml += "<button name='crown_filter' data-crown='played' style='margin:4px;padding:8px 12px;'>不合格</button>";
-   buttonsHtml += "<button name='crown_filter' data-crown='none' style='margin:4px;padding:8px 12px;'>未遊玩</button>";
+   var buttonsHtml = "<div id='myplugin_crown_buttons'  class='myplugin_crown_buttons'>";
+   buttonsHtml += "<button name='crown_filter' data-crown='all'>全部</button>";
+   buttonsHtml += "<button name='crown_filter' data-crown='donderfull'>全良</button>";
+   buttonsHtml += "<button name='crown_filter' data-crown='gold'>全接</button>";
+   buttonsHtml += "<button name='crown_filter' data-crown='silver'>合格</button>";
+   buttonsHtml += "<button name='crown_filter' data-crown='played'>不合格</button>";
+   buttonsHtml += "<button name='crown_filter' data-crown='none'>未遊玩</button>";
    buttonsHtml += "</div>";
    $('#myplugin_main').append(buttonsHtml);
  
@@ -236,7 +237,7 @@ function scoreListFilter(){
                break;
        }
    });
-   let remainingHtml = "<div style='color:#ffffff;margin:10px'>你還有" + (countSilver + countPlayed + countNone) + "金冠未拿取</div>";
+   let remainingHtml = "<div class='crown_remaining'>你還有" + (countSilver + countPlayed + countNone) + "金冠未拿取</div>";
  
    $('#myplugin_main').append(remainingHtml);
  
@@ -414,7 +415,7 @@ function addFumenLayout(isUra, v,resultObject){
        html += "<li>";
        html += "</li>";
        html += "<li class='songNameFontjpop' >";
-           html += "<button name='fumenButton' style='padding:6px 10px; background: #0000007C; border: 1px solid #0000003C; color: #FCFCFC'>譜面</button>"
+           html += "<button name='fumenButton' class='fumenButton'>譜面</button>"
        // html += "<a href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"' style='font-size: 12px;color:black !important;' target='_blank'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"</a>";
        // if(JSON.parse(resultObject.level4_fumen_attach).img2 != undefined){
        //     console.log(JSON.parse(resultObject.level4_fumen_attach).img2);
@@ -437,18 +438,18 @@ function addFumenLayout(isUra, v,resultObject){
  
            isOpenedFumenArea = true;
           
-           let html = "<div style='position:relative;'><div id='fumenListArea' style='z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;'><ul style='bottom: 50%;transform: translate(0%,58%);right: 50%;left: 50%;position:absolute;width: 300px;'>";
-           html += "<li style='    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-55%, -40%);border: 5pxsolid #323232;border-radius: 40px;' ><a target='_blank' style='color: #A0A0A0 !important;' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"</a></li>";
+           let html = "<div style='position:relative;'><div id='fumenListArea' class='fumenListArea'><ul>";
+           html += "<li style='transform: translate(-55%, -40%);' ><a target='_blank' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img1+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img1+"</a></li>";
            if(JSON.parse(resultObject.level4_fumen_attach).img2 != undefined){
-               html += "<li style='    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-50%, -45%);border: 5pxsolid #323232;border-radius: 40px;'><a target='_blank' style='color: #A0A0A0 !important;' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"</a></li>";
+               html += "<li style='transform: translate(-50%, -45%);'><a target='_blank' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img2+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img2+"</a></li>";
            }
            if(JSON.parse(resultObject.level4_fumen_attach).img3 != undefined){
-               html += "<li style='    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-50%, -50%);border: 5pxsolid #323232;border-radius: 40px;'><a target='_blank' style='color: #A0A0A0 !important;' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img3+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img3+"</a></li>";
+               html += "<li style='transform: translate(-50%, -50%);'><a target='_blank' href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img3+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img3+"</a></li>";
            }
            if(JSON.parse(resultObject.level4_fumen_attach).img4 != undefined){
-               html += "<li style='    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-50%, -55%);border: 5pxsolid #323232;border-radius: 40px;'><a target='_blank' style='color: #A0A0A0 !important;'  href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img4+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img4+"</a></li>";
+               html += "<li style='transform: translate(-50%, -55%);'><a target='_blank'  href='https://www.wikihouse.com/taiko/attach/"+JSON.parse(resultObject.level4_fumen_attach).img4+"'>"+JSON.parse(resultObject.level4_fumen_title_tc).img4+"</a></li>";
            }
-            html += "<li id='fumen_back' style='margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-55%, -60%);border: 5pxsolid #323232;border-radius: 40px;' target='_blank'>返回</li>";
+            html += "<li id='fumen_back' class='fumenBack' target='_blank'>返回</li>";
             html += "</ul></div></div>"
             $("body").append(html);
             $("#fumen_back").click(function(){
@@ -495,9 +496,8 @@ function getCookie(cname) {
 
 
 // Friend List Functions
-
 function addFriendTagField(){
-    let appendHtml = '<div class="friendTagArea"><input>Testing</input></div>';
+    let appendHtml = '<div class="friendTagArea">標籤：<input class="friendTagArea" value="Testing"/></div>';
 
-    $(".friendProfileArea").append(appendHtml);
+    $(appendHtml).insertBefore(".buttonArea.friend");
 }
