@@ -127,7 +127,7 @@ function searchFunction(){
  
 function filterLevel(){
    $("#myplugin_filter_bar").remove();
-   var buttonsHtml = "<div id='myplugin_filter_bar' style='myplugin_filter_bar'>";
+   var buttonsHtml = "<div id='myplugin_filter_bar' class='myplugin_filter_bar'>";
    buttonsHtml += '<div class="slider-container">';
    buttonsHtml += '<input type="text" id="searchSlider" class="slider" style="display: none;">';
    buttonsHtml += '</div>';
