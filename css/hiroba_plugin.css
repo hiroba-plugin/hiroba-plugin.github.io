@@ -1,0 +1,66 @@
+.loading{
+    z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;
+}
+
+.loading img{
+    transform:translate(0, 60%);
+}
+
+.myplugin_search_bar{
+    display: grid;grid-template-columns: 25% 72%;position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;
+}
+
+.searchInput{
+    width:100%; margin:4px; border-radius: 4px;
+}
+
+.myplugin_filter_bar{
+    position: fixed;bottom: 0;z-index: 1;background: #FF7F00;padding: 4px;width: 292px;margin-bottom:43px;height:50px;
+}
+
+.myplugin_crown_buttons{
+    display: grid;grid-template-columns: 50% 50% ;
+}
+
+.myplugin_crown_buttons button{
+    margin:4px;padding:8px 12px;
+}
+
+.crown_remaining{
+    color:#ffffff;margin:10px;
+}
+
+.fumenButton{
+    padding:6px 10px; background: #0000007C; border: 1px solid #0000003C; color: #FCFCFC
+}
+
+.fumenListArea{
+    z-index:1;width:100%;height:100%;background:#000A;text-align:center;position: fixed;top: 0;
+}
+
+.fumenListArea ul{
+    bottom: 50%;transform: translate(0%,58%);right: 50%;left: 50%;position:absolute;width: 300px;
+}
+
+.fumenListArea ul li{
+    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;border: 5pxsolid #323232;border-radius: 40px;
+}
+
+.fumenListArea ul li a{
+    color: #A0A0A0 !important;
+}
+
+.fumenBack{
+    margin: 10px;font-size: 18px;color: #A0A0A0 !important;background: #060606;padding: 8px 102px;bottom: 50%; top: 50%;position: relative;transform: translate(-55%, -60%);border: 5pxsolid #323232;border-radius: 40px;
+}
+
+.friendTagArea{
+
+}
+
+.friendTagArea input{
+    border: 0px;
+    background: #ffe977;
+    font-size: 12px;
+    width: 170px;
+}
