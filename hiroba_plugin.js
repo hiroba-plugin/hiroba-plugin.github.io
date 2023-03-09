@@ -10,10 +10,10 @@ $(document).ready(function(){
    if(isCalled){
        alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
    } else {
+        callOtherCssFile("https://hiroba-plugin.github.io/css/hiroba_plugin.css");
        if (window.location.href.indexOf("score_list") > 0) {
            callOtherJsFile("https://hiroba-plugin.github.io/js/rSlider.min.js");
            callOtherCssFile("https://hiroba-plugin.github.io/css/rSlider.min.css");
-           callOtherCssFile("https://hiroba-plugin.github.io/css/hiroba_plugin.css");
            setuploadingBar();
            resetTabList();
            // fetchcall();
