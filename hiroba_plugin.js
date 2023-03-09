@@ -497,7 +497,7 @@ function getCookie(cname) {
 
 // Friend List Functions
 function addFriendTagField(){
-    let appendHtml = '<div class="friendTagArea"><span>標籤：</span><input class="friendTagArea" value="Testing"/></span>';
+    let appendHtml = '<div class="friendTagArea"><span>標籤：</span><input class="friendTagArea" value="Testing"/><button>確定</button>';
 
     $(appendHtml).insertBefore(".buttonArea.friend");
 }
