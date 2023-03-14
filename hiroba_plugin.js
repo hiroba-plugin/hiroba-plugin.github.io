@@ -525,7 +525,7 @@ function addFriendTagField() {
     $(appendHtml).insertBefore(".buttonArea.friend");
     
     var friendTaikobanList = [];
-    $(".friendMydonImgArea").foreach(function(i ,v ){
+    $(".friendMydonImgArea").each(function(i ,v ){
         friendTaikobanList.push($(v).$("a").attr("html"));
     });
 
