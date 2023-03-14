@@ -533,7 +533,7 @@ function addFriendTagField() {
             url: 'https://hkitguy.info/TaikoScore/friends/getFriendTag',
             data: {
                 taiko_ban: getToken(),
-                target_taiko_ban:
+                target_taiko_ban: 1
             },
             type: 'POST',
             async: true,
