@@ -6,6 +6,12 @@ var searchSlider = null;
 var searchNameConditionList = [];
 var searchLevelConditionList = [];
 
+var currentCrown = "all";
+var currentLevelValue = ['1', '10'];
+var songNameList = [];
+var crownList = [];
+
+
 $(document).ready(function () {
     if (isCalled) {
         alert("你已經開啟了 Hiroba Plugin， 請F5重開頁面。");
@@ -122,10 +128,10 @@ function searching() {
 }
 
 function searchFunction() {
+    console.log(searchNameConditionList)
     $(".contentBox").each(function (i, v) {
-        console.log(searchNameConditionList[i], searchLevelConditionList[i])
         let searchInput = $("#searchInput").val();
-        if ((searchInput == '' && searchLevelConditionList[i]) || (searchNameConditionList[i] && searchLevelConditionList[i])) {
+        if ((currentCrown == "all" || crownList[i].crown == currentCrown) && ((searchInput == '' && searchLevelConditionList[i]) || (searchNameConditionList[i] && searchLevelConditionList[i])) ) {
             $(this).show();
         } else {
             $(this).hide();
@@ -160,12 +166,17 @@ function filterLevel() {
             console.log(valsArr);
             $(".contentBox").each(function (index, v) {
                 var level = $(v).find(".levelShow").find(".buttonList").find("li:nth-child(4)").attr("data-level");
+
+
                 if (parseInt(level) < parseInt(valsArr[0]) || parseInt(level) > parseInt(valsArr[1])) {
                     searchLevelConditionList.push(false);
                 } else {
                     searchLevelConditionList.push(true);
                 }
+
+
             });
+            console.log(searchLevelConditionList);
             searchFunction();
         }
     });
@@ -195,13 +206,11 @@ function scoreListFilter() {
     $('#myplugin_main').append(buttonsHtml);
 
     $('[name="crown_filter"]').click(function () {
-        crownFilter($(this).data('crown'));
-        searchSlider.setValues(1, 10);
+        currentCrown = $(this).data('crown');
+        searchFunction();
+        //searchSlider.setValues(1, 10);
     });
 
-
-    var songNameList = [];
-    var crownList = [];
 
     $(".songName").each(function (index) {
         songNameList.push($(this).html());
@@ -259,7 +268,7 @@ function scoreListFilter() {
         $("#searchInput").val("");
         $(".contentBox").each(function (index) {
             $(this).show();
-            if (crown != "all" && crownList[index].crown != crown) {
+            if (currentCrown != "all" && crownList[index].crown != currentCrown) {
                 $(this).hide();
             }
         });
